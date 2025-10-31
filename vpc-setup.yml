@@ -25,13 +25,11 @@
         region: "{{region}}"
         az: "{{zone1}}"
         state: "{{state}}"
-        cidr: "{{PubSub1Cidr}}"
+        cidr: "{{PublicSubnet1Cider}}"
         map_public: yes
         resource_tags:
           name: Vprofile-pubsub1
-        register: pubsub1_out
-
-
+      register: pubsub1_out
 
     - name: create Public Subnet 2 in Zone2
       ec2_vpc_subnet:
@@ -39,11 +37,11 @@
         region: "{{region}}"
         az: "{{zone2}}"
         state: "{{state}}"
-        cidr: "{{PubSub2Cidr}}"
+        cidr: "{{PublicSubnet2Cider}}"
         map_public: yes
         resource_tags:
           name: Vprofile-pubsub2
-        register: pubsub2_out
+      register: pubsub2_out
 
     - name: create Public Subnet 3 in Zone3
       ec2_vpc_subnet:
@@ -51,9 +49,48 @@
         region: "{{region}}"
         az: "{{zone3}}"
         state: "{{state}}"
-        cidr: "{{PubSub3Cidr}}"
+        cidr: "{{PublicSubnet3Cider}}"
         map_public: yes
         resource_tags:
           name: Vprofile-pubsub3
-        register: pubsub3_out
+      register: pubsub3_out
+    
 
+    - name: create Private Subnet 1 in Zone1
+      ec2_vpc_subnet:
+        vpc_id: "{{vpcout.vpc.id}}"
+        region: "{{region}}"
+        az: "{{zone1}}"
+        state: "{{state}}"
+        cidr: "{{PrivSub1Cidr}}"
+        map_public: yes
+        resource_tags:
+          name: Vprofile-privsub1
+        register: privsub1_out
+
+
+
+    - name: create Private Subnet 2 in Zone2
+      ec2_vpc_subnet:
+        vpc_id: "{{vpcout.vpc.id}}"
+        region: "{{region}}"
+        az: "{{zone2}}"
+        state: "{{state}}"
+        cidr: "{{PrivSub2Cidr}}"
+        map_public: yes
+        resource_tags:
+          name: Vprofile-privsub2
+        register: privsub2_out
+
+
+    - name: create Private Subnet 3 in Zone3
+      ec2_vpc_subnet:
+        vpc_id: "{{vpcout.vpc.id}}"
+        region: "{{region}}"
+        az: "{{zone3}}"
+        state: "{{state}}"
+        cidr: "{{PrivSub3Cidr}}"
+        map_public: yes
+        resource_tags:
+          name: Vprofile-privsub3
+        register: privsub3_out
