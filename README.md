@@ -1,7 +1,5 @@
 # Ansible-AWS-VPC-Automation
 
-Production-ready Ansible automation for AWS VPC infrastructure deployment with multi-AZ support, bastion host, and Infrastructure as Code best practices
-
 [![Ansible](https://img.shields.io/badge/Ansible-2.9%2B-blue.svg)](https://www.ansible.com/)
 [![AWS](https://img.shields.io/badge/AWS-VPC-orange.svg)](https://aws.amazon.com/vpc/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -9,27 +7,6 @@ Production-ready Ansible automation for AWS VPC infrastructure deployment with m
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/YOUR-USERNAME/ansible-aws-vpc-automation/graphs/commit-activity)
 
 > **Production-ready Infrastructure as Code (IaC) solution for automating AWS VPC deployment with multi-AZ architecture, NAT Gateway, Internet Gateway, and Bastion Host using Ansible.**
-
----
-
-## 📋 Table of Contents
-
-- [Overview](#-overview)
-- [Features](#-features)
-- [Architecture](#-architecture)
-- [Prerequisites](#-prerequisites)
-- [Quick Start](#-quick-start)
-- [Project Structure](#-project-structure)
-- [Configuration](#-configuration)
-- [Usage](#-usage)
-- [Deployment Environments](#-deployment-environments)
-- [Security](#-security)
-- [Troubleshooting](#-troubleshooting)
-- [Contributing](#-contributing)
-- [License](#-license)
-- [Contact](#-contact)
-
----
 
 ## 🎯 Overview
 
@@ -70,3 +47,46 @@ This project provides a comprehensive Ansible automation framework for deploying
 - ✅ **CI/CD Integration** - GitHub Actions workflows
 - ✅ **Comprehensive Logging** - Detailed execution logs
 - ✅ **Cost Tagging** - Automatic resource tagging for cost allocation
+
+  
+**Traffic Flow:**
+- **Public Subnet → Internet**: Route Table → Internet Gateway
+- **Private Subnet → Internet**: Route Table → NAT Gateway → Internet Gateway
+- **External → Bastion**: Internet → IGW → Bastion (Public Subnet)
+- **Bastion → Private Instances**: SSH via private IP addresses
+
+For detailed architecture documentation, see [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
+
+---
+
+## 📦 Prerequisites
+
+### Required Tools
+
+| Tool | Version | Purpose |
+|------|---------|---------|
+| **Ansible** | 2.9+ | Infrastructure automation |
+| **Python** | 3.8+ | Ansible runtime and boto3 |
+| **boto3** | Latest | AWS SDK for Python |
+| **botocore** | Latest | Low-level AWS service access |
+| **AWS CLI** | 2.x | AWS command-line operations |
+| **Git** | 2.x | Version control |
+
+### AWS Requirements
+
+- **AWS Account** with appropriate permissions
+- **IAM Role** or **Access Keys** with the following permissions:
+  - EC2 Full Access
+  - VPC Full Access
+  - IAM PassRole (for attaching roles to instances)
+- **AWS Region** with at least 2 availability zones
+
+### Knowledge Prerequisites
+
+- Basic understanding of AWS VPC concepts
+- Familiarity with Ansible playbooks and roles
+- Linux command-line experience
+- SSH key management knowledge
+
+
+
