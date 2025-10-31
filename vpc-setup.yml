@@ -62,13 +62,11 @@
         region: "{{region}}"
         az: "{{zone1}}"
         state: "{{state}}"
-        cidr: "{{PrivSub1Cidr}}"
-        map_public: yes
+        cidr: "{{PrivateSubnet1Cider}}"
+        map_public: no
         resource_tags:
           Name: Vprofile-privsub1
-        register: privsub1_out
-
-
+      register: privsub1_out
 
     - name: create Private Subnet 2 in Zone2
       ec2_vpc_subnet:
@@ -76,12 +74,11 @@
         region: "{{region}}"
         az: "{{zone2}}"
         state: "{{state}}"
-        cidr: "{{PrivSub2Cidr}}"
-        map_public: yes
+        cidr: "{{PrivateSubnet2Cider}}"
+        map_public: no
         resource_tags:
           Name: Vprofile-privsub2
-        register: privsub2_out
-
+      register: privsub2_out
 
     - name: create Private Subnet 3 in Zone3
       ec2_vpc_subnet:
@@ -89,11 +86,11 @@
         region: "{{region}}"
         az: "{{zone3}}"
         state: "{{state}}"
-        cidr: "{{PrivSub3Cidr}}"
-        map_public: yes
+        cidr: "{{PrivateSubnet3Cider}}"
+        map_public: no
         resource_tags:
           Name: Vprofile-privsub3
-        register: privsub3_out
+      register: privsub3_out
 
     - name: Internet Gateway Setup
       ec2_vpc_igw:
@@ -102,9 +99,9 @@
         state: "{{state}}"
         resource_tags:
           Name: Vprofile_IGW
-        register: igw_out
+      register: igw_out
 
-    - name: Set up public subnet rute table
+    - name: Set up public subnet route table
       ec2_vpc_route_table:
         vpc_id: "{{vpcout.vpc.id}}"
         region: "{{region}}"
@@ -114,10 +111,9 @@
           - "{{pubsub1_out.subnet.id}}"
           - "{{pubsub2_out.subnet.id}}"
           - "{{pubsub3_out.subnet.id}}"
-
         routes:
-           - dest: 0.0.0.0/0
-             gateway_id: "{{igw_out.gateway_id}}"
+          - dest: 0.0.0.0/0
+            gateway_id: "{{igw_out.gateway_id}}"
       register: pubRT_out 
       
         
