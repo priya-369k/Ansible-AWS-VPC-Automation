@@ -28,7 +28,7 @@
         cidr: "{{PublicSubnet1Cider}}"
         map_public: yes
         resource_tags:
-          name: Vprofile-pubsub1
+          Name: Vprofile-pubsub1
       register: pubsub1_out
 
     - name: create Public Subnet 2 in Zone2
@@ -40,7 +40,7 @@
         cidr: "{{PublicSubnet2Cider}}"
         map_public: yes
         resource_tags:
-          name: Vprofile-pubsub2
+          Name: Vprofile-pubsub2
       register: pubsub2_out
 
     - name: create Public Subnet 3 in Zone3
@@ -52,7 +52,7 @@
         cidr: "{{PublicSubnet3Cider}}"
         map_public: yes
         resource_tags:
-          name: Vprofile-pubsub3
+          Name: Vprofile-pubsub3
       register: pubsub3_out
     
 
@@ -65,7 +65,7 @@
         cidr: "{{PrivSub1Cidr}}"
         map_public: yes
         resource_tags:
-          name: Vprofile-privsub1
+          Name: Vprofile-privsub1
         register: privsub1_out
 
 
@@ -79,7 +79,7 @@
         cidr: "{{PrivSub2Cidr}}"
         map_public: yes
         resource_tags:
-          name: Vprofile-privsub2
+          Name: Vprofile-privsub2
         register: privsub2_out
 
 
@@ -92,5 +92,14 @@
         cidr: "{{PrivSub3Cidr}}"
         map_public: yes
         resource_tags:
-          name: Vprofile-privsub3
+          Name: Vprofile-privsub3
         register: privsub3_out
+
+    - name: Internet Gateway Setup
+      ec2_vpc_igw:
+        vpc_id: "{{vpcout.vpc.id}}"
+        region: "{{region}}"
+        state: "{{state}}"
+        resource_tags:
+          Name: Vprofile_IGW
+        register: privsub3_outigw_out
